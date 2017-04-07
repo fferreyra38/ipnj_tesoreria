@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pastorlocals list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pastorLocal in pastorLocals %}
+            <tr>
+                <td><a href="{{ path('pastorlocal_show', { 'id': pastorLocal.id }) }}">{{ pastorLocal.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pastorlocal_show', { 'id': pastorLocal.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pastorlocal_edit', { 'id': pastorLocal.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pastorlocal_new') }}">Create a new pastorLocal</a>
+        </li>
+    </ul>
+{% endblock %}

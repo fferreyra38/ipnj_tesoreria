@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tesorerolocals list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tesoreroLocal in tesoreroLocals %}
+            <tr>
+                <td><a href="{{ path('tesorerolocal_show', { 'id': tesoreroLocal.id }) }}">{{ tesoreroLocal.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('tesorerolocal_show', { 'id': tesoreroLocal.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('tesorerolocal_edit', { 'id': tesoreroLocal.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tesorerolocal_new') }}">Create a new tesoreroLocal</a>
+        </li>
+    </ul>
+{% endblock %}

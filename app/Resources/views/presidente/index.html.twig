@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Presidentes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for presidente in presidentes %}
+            <tr>
+                <td><a href="{{ path('presidente_show', { 'id': presidente.id }) }}">{{ presidente.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('presidente_show', { 'id': presidente.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('presidente_edit', { 'id': presidente.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('presidente_new') }}">Create a new presidente</a>
+        </li>
+    </ul>
+{% endblock %}

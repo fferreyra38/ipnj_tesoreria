@@ -2,10 +2,11 @@
 # http://symfony.com/doc/current/security.html
 security:
 
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        our_db_provider:
+            entity:
+                class: AppBundle:Usuario
+                property: dni
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +16,28 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
 
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+            provider: our_db_provider
+      
+            form_login:
+                login_path: login
+                check_path: login
+                always_use_default_target_path: true
+                default_target_path: /presidente
 
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~
+            logout:
+               path: /logout
+               target: /login
+
+    encoders:
+        AppBundle\Entity\Usuario: 
+            algorithm: bcrypt
+    
+    role_hierarchy:
+        # admin is user too
+        ROLE_ADMIN: ROLE_USER
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/*, roles: ROLE_USER }
+        - { path: ^/presidente/*, roles: ROLE_ADMIN }
